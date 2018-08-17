@@ -10,6 +10,12 @@ import { HttpClient } from '../../../node_modules/@types/selenium-webdriver/http
 export class UserCardComponent implements OnInit {
   public heroes;
   public KEYS = [];
+  public KEYS2 = [];
+  public OJBinKEY = [];
+
+  toSymbol(variable) {
+    return Symbol(variable);
+  };
 
   constructor(private userService : UserService) {
    }
@@ -20,12 +26,22 @@ export class UserCardComponent implements OnInit {
       for (let item of this.heroes){
         for (let key in item){
           if (this.KEYS.indexOf(key) === -1 && key != 'name'){
-            this.KEYS.push(key);
+            if (!(typeof item[key] === 'object')){
+              this.KEYS.push(key);
+            }else{
+              if (this.OJBinKEY.indexOf(key) === -1){
+                this.OJBinKEY.push(key);
+              }
+              for (let k in item[key]){
+                if (this.KEYS2.indexOf(k) === -1) this.KEYS2.push(k);
+              }
+            }
           }
         } 
       }
       console.log(this.KEYS);
     });
+
   }
 
 }

@@ -4,7 +4,16 @@
   <li *ngFor='let hero of heroes'>
     {{hero.name}}
     <ul>
-      <li *ngFor = 'let item of KEYS'> {{hero.item}}</li>
+      <li *ngFor = 'let item of KEYS'> 
+        {{item}} = {{ hero[item] }}
+      </li>
+    </ul>
+    <ul>
+      <li *ngFor = 'let i of OJBinKEY'> {{ i }}:
+        <ul>
+          <li *ngFor = 'let a of KEYS2'> {{a}} = {{hero[i][a]}}</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
