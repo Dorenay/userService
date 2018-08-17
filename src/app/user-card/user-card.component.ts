@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './user.service';
+import { HttpClient } from '../../../node_modules/@types/selenium-webdriver/http';
 
 @Component({
   selector: 'app-user-card',
@@ -8,14 +9,23 @@ import { UserService } from './user.service';
 })
 export class UserCardComponent implements OnInit {
   public heroes;
-  private _userService;
+  public KEYS = [];
 
-  constructor(userService : UserService) {
-    this._userService = userService;
+  constructor(private userService : UserService) {
    }
 
   ngOnInit() {
-    this.heroes = this._userService.getAll();
+    this.userService.getAll().subscribe(heroes => this.heroes = heroes);
+    this.userService.getAll().subscribe(_=> {
+      for (let item of this.heroes){
+        for (let key in item){
+          if (this.KEYS.indexOf(key) === -1 && key != 'name'){
+            this.KEYS.push(key);
+          }
+        } 
+      }
+      console.log(this.KEYS);
+    });
   }
 
 }

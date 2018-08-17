@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '../../../node_modules/@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,12 @@ export class UserService {
     {name: 'Marine', age: 200}
   ]
 
-  constructor() { }
+  constructor( private _http: HttpClient) { }
 
   /**
    * getALL
    */
-  public getALL() {
-    return this.HEROES;
+  public getAll() {
+    return this._http.get('https://jsonplaceholder.typicode.com/users');
   }
 }
